@@ -13,6 +13,8 @@
 
 ---
 https://github.com/mengkunsoft/MKOnlineMusicPlayer
+合并
+https://github.com/mxue12138/MKOnlineMusicPlayer
 
 采用的开源模块
 Jquery：js主流开发框架 http://jquery.com/
