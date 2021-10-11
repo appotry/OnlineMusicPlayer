@@ -329,7 +329,7 @@ function play(music) {
         return;
     }
     
-    rem.errCount = 0;   // 连续播放失败的歌曲数归零
+    // rem.errCount = 0;   // 连续播放失败的歌曲数归零
     music_bar.goto(0);  // 进度条强制归零
     changeCover(music);    // 更新封面展示
     ajaxLyric(music, lyricCallback);     // ajax加载歌词
