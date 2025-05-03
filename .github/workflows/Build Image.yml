@@ -5,12 +5,18 @@ on:
     branches:
       - main
       - master
-  #schedule:
+  watch:
+    types: [started]
+  release:
+    types: [published]
+  schedule:
     # * is a special character in YAML so you have to quote this string
     # UTC 17:00 -> CST (China) 1:00, see https://datetime360.com/cn/utc-cst-china-time/
-    #- cron: '0 17 * * *'
-    # 每周运行
-    #- cron: '0 0 * * 0'
+    # - cron: '0 17 * * *'
+    # 每月最后一天10:15分运行
+    # - cron: '0 15 10 L * ?'
+    # 每月第一天0:0分运行
+    - cron: '0 0 1 * *'
   workflow_dispatch:
 
 jobs:
@@ -28,7 +34,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3 
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -37,16 +43,18 @@ jobs:
       - name: Set Version
         id: set-version
         run: |
-          echo "version=$(date +"%y-%m-%d")" >> $GITHUB_OUTPUT
-          echo $(date +"%y-%m-%d")
+          echo "version=`date +'%y-%m-%d'`" >> $GITHUB_ENV
           
       # Build and push
       - name: Build dockerfile
         uses: docker/build-push-action@v6
         with:
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          # platforms: linux/amd64
           push: true
           tags: |
             bloodstar/music-player-docker:stable-${{ env.version }}
             bloodstar/music-player-docker:latest
+
+
