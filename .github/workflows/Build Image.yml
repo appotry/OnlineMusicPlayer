@@ -39,11 +39,9 @@ jobs:
         run: |
           echo "version=$(date +"%y-%m-%d")" >> $GITHUB_OUTPUT
           echo $(date +"%y-%m-%d")
-          echo "status=success" >> $GITHUB_OUTPUT
           
       # Build and push
       - name: Build dockerfile
-        if: steps.set-version.outputs.status == 'success'
         uses: docker/build-push-action@v6
         with:
           file: ./Dockerfile
