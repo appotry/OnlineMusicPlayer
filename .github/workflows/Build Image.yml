@@ -37,9 +37,9 @@ jobs:
       - name: Set Version
         id: set-version
         run: |
-          echo "::set-output name=version::$(date +"%y-%m-%d")"
+          echo "version=$(date +"%y-%m-%d")" >> $GITHUB_OUTPUT
           echo $(date +"%y-%m-%d")
-          echo "::set-output name=status::success"
+          echo "status=success" >> $GITHUB_OUTPUT
           
       # Build and push
       - name: Build dockerfile
