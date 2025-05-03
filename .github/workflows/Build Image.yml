@@ -44,11 +44,11 @@ jobs:
       # Build and push
       - name: Build dockerfile
         if: steps.set-version.outputs.status == 'success'
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
           tags: |
-            bloodstar/music-player-docker:stable-${{ steps.set-version.outputs.version }}
+            bloodstar/music-player-docker:stable-${{ env.version }}
             bloodstar/music-player-docker:latest
