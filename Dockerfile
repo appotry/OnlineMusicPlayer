@@ -11,5 +11,7 @@ EXPOSE 264
 # Persistent config file and cache
 VOLUME [ "/var/www/html/cache" ]
 
-CMD php-fpm & \
-    nginx -g "daemon off;"
+COPY entrypoint.sh /
+RUN chmod +x /entrypoint.sh
+CMD ["/entrypoint.sh"]
+
